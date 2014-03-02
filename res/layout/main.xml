@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:id="@+id/image1x1"
+            android:visibility="visible"
+            android:layout_alignParentLeft="true" android:layout_below="@+id/completed"/>
+    <ImageView
+            android:layout_width="116dp"
+            android:layout_height="75dp"
+            android:id="@+id/image1x2"
+            android:layout_toRightOf="@+id/image1x1" android:layout_alignTop="@+id/image1x1"
+            android:layout_alignParentRight="true" android:layout_alignBottom="@+id/image1x1"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:id="@+id/image2x1" android:layout_alignLeft="@+id/image1x1"
+            android:layout_below="@+id/image1x1" android:layout_alignRight="@+id/image1x1"/>
+    <ImageView
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image2x2" android:layout_alignRight="@+id/image1x2"
+            android:layout_below="@+id/image1x1"
+            android:layout_alignBottom="@+id/image2x1"
+            android:layout_toRightOf="@+id/image1x1" android:focusableInTouchMode="false"/>
+    <TextView
+            android:layout_width="63dp"
+            android:layout_height="25dp"
+            android:text="Угадал:"
+            android:id="@+id/completed"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:id="@+id/completedCount" android:layout_toRightOf="@+id/completed"
+            android:layout_alignTop="@+id/completed"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пропустил:   "
+            android:id="@+id/pass"
+            android:layout_centerHorizontal="true" android:layout_alignTop="@+id/completed"/>
+    <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:id="@+id/textView"
+            android:layout_toRightOf="@+id/pass" android:layout_alignTop="@+id/completed"/>
+</RelativeLayout>
