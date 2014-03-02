@@ -52,4 +52,10 @@
             android:text="0"
             android:id="@+id/textView"
             android:layout_toRightOf="@+id/pass" android:layout_alignTop="@+id/completed"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/chars" android:layout_alignLeft="@+id/image1x1"
+            android:layout_alignParentBottom="true"/>
 </RelativeLayout>
