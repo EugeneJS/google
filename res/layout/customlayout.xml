@@ -40,7 +40,7 @@
             android:id="@+id/accept"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_alignLeft="@+id/word" android:layout_below="@+id/letters"
-            android:gravity="center"/>
+            android:gravity="center" android:onClick="sendOnClick"/>
     <LinearLayout android:id="@+id/linearLayout" android:orientation="horizontal" android:layout_width="125dp"
                   android:layout_height="wrap_content" android:layout_alignLeft="@+id/word"
                   android:layout_below="@+id/word" android:layout_alignParentRight="true"/>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
@@ -40,22 +41,11 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.main);
 
+        //TextView triesCount = (TextView)findViewById(R.id.tries);
+        //triesCount.setText("te - ");
 
+        new DownloadJSONFileAsync(this).execute(url, "image");
 
-        /*new DownloadPhotoFileAsync(this).execute("http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
-                "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
-                "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
-                "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
-                (ImageView) findViewById(R.id.image1x1),
-                (ImageView) findViewById(R.id.image1x2),
-                (ImageView) findViewById(R.id.image2x1),
-                (ImageView) findViewById(R.id.image2x2));  */
-        new DownloadJSONFileAsync(this).execute(url);
-
-        customKeyboard = new CustomKeyboard(this, 7, new char[]{'a', 'b', 'c', 'b', 'c', 'b', 'c'});
-        customKeyboard.SetOnNextBtnClickListner(this);
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
-        layout.addView(customKeyboard);
     }
 
     @Override
@@ -63,15 +53,9 @@ public class MyActivity extends Activity implements View.OnClickListener {
     {
         Log.e("", "click");
         Toast.makeText(this, customKeyboard.GetCurrentText(), Toast.LENGTH_SHORT).show();
+        new DownloadJSONFileAsync(this).execute("http://hmug.herokuapp.com/check/question/?user_id=1&answer=" + customKeyboard.GetCurrentText(), "");
     }
 
-    /*public void setImagesArray(String[] arr) {
-        new DownloadPhotoFileAsync(this).execute(arr[0],arr[1],arr[2],arr[3],
-                (ImageView) findViewById(R.id.image1x1),
-                (ImageView) findViewById(R.id.image1x2),
-                (ImageView) findViewById(R.id.image2x1),
-                (ImageView) findViewById(R.id.image2x2));
-    } */
 
     class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
 
@@ -128,12 +112,58 @@ public class MyActivity extends Activity implements View.OnClickListener {
         return true;
     }
 
-    public void GetImagesArray(String[] arrUrls) {
+    Object obj;
+
+    public void GetImagesArray(String[] arrUrls, int length, String chars) {
         new DownloadPhotoFileAsync(this).execute(arrUrls[0],arrUrls[1],arrUrls[2],arrUrls[3],
                 (ImageView) findViewById(R.id.image1x1),
                 (ImageView) findViewById(R.id.image1x2),
                 (ImageView) findViewById(R.id.image2x1),
                 (ImageView) findViewById(R.id.image2x2));
+
+
+        Log.e("","-_-Length: " + length);
+
+        Log.e("","-_-Chars: " + chars);
+
+        customKeyboard = new CustomKeyboard(this, length, chars.toCharArray());
+        customKeyboard.SetOnNextBtnClickListner(this);
+
+        obj = this;
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                MyActivity activity = (MyActivity)obj;
+                LinearLayout layout = (LinearLayout)activity.findViewById(R.id.layout);
+                layout.addView(customKeyboard);
+            }
+        });
+
+    }
+
+    public void GetAnswerResult(int tries, int coins){
+        Log.e("","Tries: "+tries);
+        Log.e("","Coins: "+coins);
+        final Integer t = tries;
+        final Integer c = coins;
+        obj = this;
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                MyActivity activity = (MyActivity)obj;
+                TextView triesCount = (TextView)activity.findViewById(R.id.tries);
+                triesCount.setText("" + t);
+
+
+                TextView coinsCount = (TextView)activity.findViewById(R.id.completedCount);
+                coinsCount.setText("" + c);
+            }
+        });
+
 
     }
 }

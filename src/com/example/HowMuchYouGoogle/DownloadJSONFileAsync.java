@@ -7,9 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
     // Download JSON in Background
-    public class DownloadJSONFileAsync extends AsyncTask<Object, Void, Void> {
+    public class DownloadJSONFileAsync extends AsyncTask<String, Void, Void> {
         private Activity activity;
         private String[] arrUrls = new String[4];
+        private String chars;
 
         public DownloadJSONFileAsync(Activity _activity){
             activity = _activity;
@@ -21,29 +22,42 @@ import org.json.JSONObject;
         }
 
         @Override
-        protected Void doInBackground(Object... params) {
+        protected Void doInBackground(String... params) {
 
             String url = (String) params[0];
 
+            if (params[1] == "image") {
+                JSONObject data;
+                try {
+                    data = new JSONObject(Constants.getJSONUrl(url));
+                    int length = data.getInt("length");
+                    JSONArray array = data.getJSONArray("images");
+                    for(int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject c = array.getJSONObject(i);
+                        arrUrls[i] =  c.get("url").toString();
+                        Log.e("= ^_^ =>", arrUrls[i]);
+                    }
+                    chars = data.getString("chars");
+                    ((MyActivity)activity).GetImagesArray(arrUrls, length, chars);
 
-            JSONObject data;
-            try {
-                data = new JSONObject(Constants.getJSONUrl(url));
-                int length = data.getInt("length");
-                JSONArray array = data.getJSONArray("images");
-                for(int i = 0; i < array.length(); i++)
-                {
-                    JSONObject c = array.getJSONObject(i);
-                    arrUrls[i] =  c.get("url").toString();
-                    Log.e("= ^_^ =>", arrUrls[i]);
+                } catch (JSONException e) {
+                    Log.e("", e.getMessage());
                 }
-                ((MyActivity)activity).GetImagesArray(arrUrls);
+            } else {
+                JSONObject data;
+                try {
+                    data = new JSONObject(Constants.getJSONUrl(url));
+                    int coins = data.getInt("coins");
+                    int tries = data.getInt("tries");
+                    ((MyActivity)activity).GetAnswerResult(tries, coins);
+                } catch (JSONException e) {
+                    Log.e("", e.getMessage());
+                }
 
-            } catch (JSONException e) {
-                Log.e("", e.getMessage());
-            }
+                }
 
-            return null;
+                return null;
         }
 
         protected void onPostExecute(Void unused) {

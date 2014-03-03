@@ -48,8 +48,14 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
         }
 
         LinearLayout Letters = (LinearLayout)findViewById(R.id.letters);
-        LettersBtnArray = new Button[AvialibleChars.length];
-        for(int i = 0; i < AvialibleChars.length; i++)
+        //LinearLayout Letters2 = (LinearLayout)findViewById(R.id.letters2);
+
+        int length = AvialibleChars.length;
+
+        LettersBtnArray = new Button[length];
+
+
+        for(int i = 0; i < length; i++)
         {
             LettersBtnArray[i] = (Button)mInflater.inflate(R.layout.letter_btn, null);
             LettersBtnArray[i].setOnClickListener(this);
@@ -78,7 +84,7 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
         {
             if(tag[1].equals(false))
             {
-                view.setTag(new Object[]{"letter", true, WordBtnArray[CurrentLetter]});
+                view.setTag(new Object[]{"letter", true});
                 WordBtnArray[CurrentLetter].setText(((Button) view).getText());
                 WordBtnArray[CurrentLetter].setTag(new Object[]{"word", true});
                 view.setSelected(true);
