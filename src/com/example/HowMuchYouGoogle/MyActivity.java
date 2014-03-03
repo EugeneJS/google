@@ -86,12 +86,12 @@ public class MyActivity extends Activity implements View.OnClickListener {
         account.restore(this);
         Log.e("","acc id - " + account.user_id);
         new DownloadJSONFileAsync(this).execute("http://hmug.herokuapp.com/check/question/?user_id="+ account.user_id +"&answer=" + customKeyboard.GetCurrentText(), "");
-        //startLevel(Constants.accountVk(this));
+        LinearLayout ll = (LinearLayout) findViewById(R.id.layout);
+        ll.removeAllViews();
+        startLevel(Constants.accountVk(this));
 
 
-        /*LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
-        layout.clearAnimation();
-         */
+
     }
 
 
