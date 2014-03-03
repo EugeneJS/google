@@ -7,8 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
     // Download JSON in Background
-    public class DownloadJSONFileAsync extends AsyncTask<String, Void, Void> {
+    public class DownloadJSONFileAsync extends AsyncTask<Object, Void, Void> {
         private Activity activity;
+        private String[] arrUrls = new String[4];
 
         public DownloadJSONFileAsync(Activity _activity){
             activity = _activity;
@@ -20,9 +21,9 @@ import org.json.JSONObject;
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Void doInBackground(Object... params) {
 
-            String url = params[0];
+            String url = (String) params[0];
 
 
             JSONObject data;
@@ -33,10 +34,10 @@ import org.json.JSONObject;
                 for(int i = 0; i < array.length(); i++)
                 {
                     JSONObject c = array.getJSONObject(i);
-                    c.get("url");
-                    Log.e("= ^_^ =>", c.toString());
+                    arrUrls[i] =  c.get("url").toString();
+                    Log.e("= ^_^ =>", arrUrls[i]);
                 }
-
+                ((MyActivity)activity).GetImagesArray(arrUrls);
 
             } catch (JSONException e) {
                 Log.e("", e.getMessage());
@@ -49,6 +50,4 @@ import org.json.JSONObject;
             activity.dismissDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS);
             activity.removeDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS);
         }
-
-
     }

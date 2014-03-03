@@ -9,21 +9,25 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import java.io.*;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MyActivity extends Activity  {
+public class MyActivity extends Activity implements View.OnClickListener {
     /**
      * Called when the activity is first created.
      */
-    private static String url = "http://hmug.herokuapp.com/get/question/";
+    private static String url = "http://hmug.herokuapp.com/get/question/?user_id=1";
+    CustomKeyboard customKeyboard;
 
 
     ArrayList<HashMap<String, Object>> MyArrList;
@@ -36,16 +40,38 @@ public class MyActivity extends Activity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.main);
 
-        new DownloadPhotoFileAsync(this).execute("http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
+
+
+        /*new DownloadPhotoFileAsync(this).execute("http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
                 "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
                 "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
                 "http://ain.ua/wp-content/uploads/2012/04/KPI-e1333958712758.png",
                 (ImageView) findViewById(R.id.image1x1),
                 (ImageView) findViewById(R.id.image1x2),
                 (ImageView) findViewById(R.id.image2x1),
-                (ImageView) findViewById(R.id.image2x2));
+                (ImageView) findViewById(R.id.image2x2));  */
         new DownloadJSONFileAsync(this).execute(url);
+
+        customKeyboard = new CustomKeyboard(this, 7, new char[]{'a', 'b', 'c', 'b', 'c', 'b', 'c'});
+        customKeyboard.SetOnNextBtnClickListner(this);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
+        layout.addView(customKeyboard);
     }
+
+    @Override
+    public void onClick(View view)
+    {
+        Log.e("", "click");
+        Toast.makeText(this, customKeyboard.GetCurrentText(), Toast.LENGTH_SHORT).show();
+    }
+
+    /*public void setImagesArray(String[] arr) {
+        new DownloadPhotoFileAsync(this).execute(arr[0],arr[1],arr[2],arr[3],
+                (ImageView) findViewById(R.id.image1x1),
+                (ImageView) findViewById(R.id.image1x2),
+                (ImageView) findViewById(R.id.image2x1),
+                (ImageView) findViewById(R.id.image2x2));
+    } */
 
     class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
 
@@ -102,6 +128,12 @@ public class MyActivity extends Activity  {
         return true;
     }
 
-    public void ShowImg()
-    {}
+    public void GetImagesArray(String[] arrUrls) {
+        new DownloadPhotoFileAsync(this).execute(arrUrls[0],arrUrls[1],arrUrls[2],arrUrls[3],
+                (ImageView) findViewById(R.id.image1x1),
+                (ImageView) findViewById(R.id.image1x2),
+                (ImageView) findViewById(R.id.image2x1),
+                (ImageView) findViewById(R.id.image2x2));
+
+    }
 }

@@ -3,6 +3,7 @@
 <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
     <ImageView
             android:layout_width="150dp"
             android:layout_height="130dp"
@@ -52,10 +53,12 @@
             android:text="0"
             android:id="@+id/textView"
             android:layout_toRightOf="@+id/pass" android:layout_alignTop="@+id/completed"/>
-    <TextView
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:id="@+id/layout"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/chars" android:layout_alignLeft="@+id/image1x1"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true">
+    </LinearLayout>
 </RelativeLayout>

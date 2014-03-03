@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/layout"
+        >
+
+
+    <LinearLayout
+            android:id="@+id/word"
+            android:orientation="horizontal"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/letters"
+            android:orientation="horizontal"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/word" android:layout_below="@+id/word"
+            android:layout_alignParentRight="true">
+
+    </LinearLayout>
+    <Button
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="&lt;"
+            style="@style/btnStyleHaiti"
+            android:id="@+id/Xbtn"
+            android:layout_alignRight="@+id/letters" android:layout_alignTop="@+id/word"
+            android:layout_alignBottom="@+id/word" android:layout_toRightOf="@+id/word"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            style="@style/btnStyleOrange"
+            android:id="@+id/accept"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignLeft="@+id/word" android:layout_below="@+id/letters"
+            android:gravity="center"/>
+    <LinearLayout android:id="@+id/linearLayout" android:orientation="horizontal" android:layout_width="125dp"
+                  android:layout_height="wrap_content" android:layout_alignLeft="@+id/word"
+                  android:layout_below="@+id/word" android:layout_alignParentRight="true"/>
+</RelativeLayout>
+
