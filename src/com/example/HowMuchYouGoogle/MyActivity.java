@@ -3,6 +3,7 @@ package com.example.HowMuchYouGoogle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -24,28 +25,55 @@ import java.util.HashMap;
 
 
 public class MyActivity extends Activity implements View.OnClickListener {
-    /**
-     * Called when the activity is first created.
-     */
-    private static String url = "http://hmug.herokuapp.com/get/question/?user_id=1";
+
     CustomKeyboard customKeyboard;
 
 
     ArrayList<HashMap<String, Object>> MyArrList;
-
+    Account account = new Account();
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.main);
 
-        //TextView triesCount = (TextView)findViewById(R.id.tries);
-        //triesCount.setText("te - ");
+        startLevel(Constants.accountVk(this));
 
+    }
+
+    private void startLevel(String url){
         new DownloadJSONFileAsync(this).execute(url, "image");
+    }
 
+    public void startLoginActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, LoginActivity.class);
+        startActivityForResult(intent, com.example.HowMuchYouGoogle.Constants.REQUEST_LOGIN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == com.example.HowMuchYouGoogle.Constants.REQUEST_LOGIN)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                //авторизовались успешно
+                account.access_token=data.getStringExtra("token");
+                account.user_id=data.getLongExtra("user_id", 0);
+                account.save(MyActivity.this);
+
+                new DownloadJSONFileAsync(this).execute("http://hmug.herokuapp.com/login/?id=" + account.user_id, "register");
+
+            }
+            else
+            {
+                startLoginActivity();
+            }
+        }
     }
 
     @Override
@@ -53,7 +81,17 @@ public class MyActivity extends Activity implements View.OnClickListener {
     {
         Log.e("", "click");
         Toast.makeText(this, customKeyboard.GetCurrentText(), Toast.LENGTH_SHORT).show();
-        new DownloadJSONFileAsync(this).execute("http://hmug.herokuapp.com/check/question/?user_id=1&answer=" + customKeyboard.GetCurrentText(), "");
+
+        Log.e("","keyboard - " + customKeyboard.GetCurrentText());
+        account.restore(this);
+        Log.e("","acc id - " + account.user_id);
+        new DownloadJSONFileAsync(this).execute("http://hmug.herokuapp.com/check/question/?user_id="+ account.user_id +"&answer=" + customKeyboard.GetCurrentText(), "");
+        //startLevel(Constants.accountVk(this));
+
+
+        /*LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
+        layout.clearAnimation();
+         */
     }
 
 
@@ -95,9 +133,9 @@ public class MyActivity extends Activity implements View.OnClickListener {
     protected Dialog onCreateDialog(int id) {
         ProgressDialog mProgressDialog = new ProgressDialog(this);
         switch (id) {
-            case Constants.DIALOG_DOWNLOAD_JSON_PROGRESS:
+            case Constants.DIALOG_DOWNLOAD_JSON_PROGRESS_SHOW:
                 mProgressDialog.setMessage("Downloading JSON.....");
-            case Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS:
+            case Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS_SHOW:
                 mProgressDialog.setMessage("Downloading PHOTO.....");
         }
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

@@ -23,9 +23,30 @@ import java.net.URL;
  */
 public class Constants
 {
-    public static final int DIALOG_DOWNLOAD_JSON_PROGRESS = 0;
-    public static final int DIALOG_DOWNLOAD_PHOTO_PROGRESS = 1;
+    public static final int DIALOG_DOWNLOAD_JSON_PROGRESS_DISMISS = 0;
+    public static final int DIALOG_DOWNLOAD_JSON_PROGRESS_REMOVE = 1;
+    public static final int DIALOG_DOWNLOAD_JSON_PROGRESS_SHOW = 2;
+    public static final int DIALOG_DOWNLOAD_PHOTO_PROGRESS_DISMISS = 3;
+    public static final int DIALOG_DOWNLOAD_PHOTO_PROGRESS_REMOVE = 4;
+    public static final int DIALOG_DOWNLOAD_PHOTO_PROGRESS_SHOW = 5;
 
+    public static String API_ID="4220952";
+
+    public static final String API_VERSION="5.5";
+    public static final String LogTAG = "VK.Auth";
+    public static String redirect_url="https://oauth.vk.com/blank.html";
+    public static final int REQUEST_LOGIN=1;
+    public static Account account;
+
+    public static String accountVk(MyActivity myActivity){
+        account = new Account();
+        account.restore(myActivity);
+        if(account.access_token == null){
+            myActivity.startLoginActivity();
+        }
+        Log.e("", "AGAGAGG ----- " + account.user_id);
+        return "http://hmug.herokuapp.com/get/question/?user_id=" + account.user_id;
+    }
 
     /*** Get JSON Code from URL ***/
     public static String getJSONUrl(String url) {

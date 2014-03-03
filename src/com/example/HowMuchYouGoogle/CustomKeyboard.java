@@ -24,6 +24,7 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
     public CustomKeyboard(Context _context, int WordLenght, char[] AvialibleChars)
     {
         super(_context);
+
         context = _context;
         max = WordLenght;
 
@@ -32,14 +33,11 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
 
         LinearLayout Word = (LinearLayout)findViewById(R.id.word);
 
-        LinearLayout.LayoutParams rl = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
         WordBtnArray = new Button[WordLenght];
         for(int i = 0; i < WordLenght; i++)
         {
             WordBtnArray[i] = (Button)mInflater.inflate(R.layout.word_btn, null);
             WordBtnArray[i].setOnClickListener(this);
-            WordBtnArray[i].setLayoutParams(rl);
             WordBtnArray[i].setTag(new Object[]{"word", false});
             Word.addView(WordBtnArray[i]);
         }
@@ -50,15 +48,18 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
         int length = AvialibleChars.length;
         int l1 = length / 2 + length % 2 ;
 
+        if(length < 9)
+        {
+            l1 = length;
+            Letters2.setVisibility(GONE);
+        }
 
         LettersBtnArray = new Button[length];
-
 
         for(int i = 0; i < l1; i++)
         {
             LettersBtnArray[i] = (Button)mInflater.inflate(R.layout.letter_btn, null);
             LettersBtnArray[i].setOnClickListener(this);
-            LettersBtnArray[i].setId(i);
             LettersBtnArray[i].setText(AvialibleChars, i, 1);
             LettersBtnArray[i].setSelected(false);
             LettersBtnArray[i].setTag(new Object[]{"letter",false});
@@ -68,7 +69,6 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
         {
             LettersBtnArray[i] = (Button)mInflater.inflate(R.layout.letter_btn, null);
             LettersBtnArray[i].setOnClickListener(this);
-            LettersBtnArray[i].setId(i);
             LettersBtnArray[i].setText(AvialibleChars, i, 1);
             LettersBtnArray[i].setSelected(false);
             LettersBtnArray[i].setTag(new Object[]{"letter",false});

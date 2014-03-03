@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
         protected void onPreExecute() {
             super.onPreExecute();
-            activity.showDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS);
+            //activity.showDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS_REMOVE);
         }
 
         @Override
@@ -44,12 +44,17 @@ import org.json.JSONObject;
                 } catch (JSONException e) {
                     Log.e("", e.getMessage());
                 }
-            } else {
+            } else if (params[1] == "register") {
+                    Constants.getJSONUrl(url);
+            }
+            else {
                 JSONObject data;
                 try {
+                    Log.e("","TRIES AND COINS");
                     data = new JSONObject(Constants.getJSONUrl(url));
                     int coins = data.getInt("coins");
                     int tries = data.getInt("tries");
+                    Log.e("","TRIES AND COINS" + coins + " - " + tries);
                     ((MyActivity)activity).GetAnswerResult(tries, coins);
                 } catch (JSONException e) {
                     Log.e("", e.getMessage());
@@ -61,7 +66,7 @@ import org.json.JSONObject;
         }
 
         protected void onPostExecute(Void unused) {
-            activity.dismissDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS);
-            activity.removeDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS);
+//            activity.dismissDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS_DISMISS);
+          //  activity.removeDialog(Constants.DIALOG_DOWNLOAD_JSON_PROGRESS_REMOVE);
         }
     }

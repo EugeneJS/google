@@ -29,7 +29,7 @@ public class DownloadPhotoFileAsync extends AsyncTask<Object, Void, Void>
 
     protected void onPreExecute() {
         super.onPreExecute();
-        //activity.showDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS);
+//        activity.showDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS_REMOVE);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class DownloadPhotoFileAsync extends AsyncTask<Object, Void, Void>
         image2.setImageBitmap(ImageFullBitmap2);
         image3.setImageBitmap(ImageFullBitmap3);
         image4.setImageBitmap(ImageFullBitmap4);
-        //activity.dismissDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS);
-        //activity.removeDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS);
+     //   activity.dismissDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS_REMOVE);
+       // activity.removeDialog(Constants.DIALOG_DOWNLOAD_PHOTO_PROGRESS_REMOVE);
 
     }
 }
