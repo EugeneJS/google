@@ -10,39 +10,42 @@
     <LinearLayout
             android:id="@+id/word"
             android:orientation="horizontal"
-            android:layout_width="280dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" android:layout_marginRight="30dp">
 
     </LinearLayout>
     <LinearLayout
             android:id="@+id/letters"
             android:orientation="horizontal"
-            android:layout_width="125dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/word" android:layout_below="@+id/word"
-            android:layout_alignParentRight="true">
+            android:layout_below="@+id/word"
+            android:layout_alignParentRight="false" android:layout_alignParentLeft="false">
 
     </LinearLayout>
+    <LinearLayout android:id="@+id/letters2"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/letters"
+                  android:layout_alignParentRight="false" android:layout_alignParentLeft="true"/>
     <Button
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="&lt;"
             style="@style/btnStyleHaiti"
             android:id="@+id/Xbtn"
-            android:layout_alignRight="@+id/letters" android:layout_alignTop="@+id/word"
-            android:layout_alignBottom="@+id/word" android:layout_toRightOf="@+id/word"/>
+            android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
     <Button
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Send"
             style="@style/btnStyleOrange"
             android:id="@+id/accept"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_alignLeft="@+id/word" android:layout_below="@+id/letters"
-            android:gravity="center" android:onClick="sendOnClick"/>
-    <LinearLayout android:id="@+id/linearLayout" android:orientation="horizontal" android:layout_width="125dp"
-                  android:layout_height="wrap_content" android:layout_alignLeft="@+id/word"
-                  android:layout_below="@+id/word" android:layout_alignParentRight="true"/>
+            android:layout_below="@+id/letters2"
+            android:gravity="center" android:onClick="sendOnClick" android:layout_alignParentRight="true"/>
 </RelativeLayout>
 

@@ -158,7 +158,6 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 TextView triesCount = (TextView)activity.findViewById(R.id.tries);
                 triesCount.setText("" + t);
 
-
                 TextView coinsCount = (TextView)activity.findViewById(R.id.completedCount);
                 coinsCount.setText("" + c);
             }
